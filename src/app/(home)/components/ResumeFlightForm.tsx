@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useCallback } from "react";
 import { useAuthStore } from "../../../lib/store";
 
 interface ResumeFlightFormProps {
@@ -48,22 +48,25 @@ const ResumeFlightForm: React.FC<ResumeFlightFormProps> = ({
   }));
   const lastTrip = trips[trips.length - 1];
 
-  const calculateTotalViajero = (traveler: Traveler) => {
-    const petCost = traveler.hasPet ? traveler.petCount * 100 : 0;
-    const flightPrice = lastTrip.price || 0; // Asegúrate de que el precio esté definido
+  const calculateTotalViajero = useCallback(
+    (traveler: Traveler) => {
+      const petCost = traveler.hasPet ? traveler.petCount * 100 : 0;
+      const flightPrice = lastTrip.price || 0; // Asegúrate de que el precio esté definido
 
-    const extraBagsCost = traveler.hasExtraBags
-      ? traveler.extraBagsCount * 50
-      : 0;
-    return petCost + extraBagsCost + flightPrice;
-  };
+      const extraBagsCost = traveler.hasExtraBags
+        ? traveler.extraBagsCount * 50
+        : 0;
+      return petCost + extraBagsCost + flightPrice;
+    },
+    [lastTrip.price]
+  );
 
-  const calculateTotal = () => {
+  const calculateTotal = useCallback(() => {
     const totalViajeros = lastTrip.travelers.reduce((total, traveler) => {
       return total + calculateTotalViajero(traveler);
     }, 0);
     return totalViajeros;
-  };
+  }, [calculateTotalViajero, lastTrip.travelers]);
 
   const inputClass = "sm:text-sm text-gray-700 pl-2";
 

@@ -1,9 +1,10 @@
 "use client";
-import React from "react";
+import React, { useCallback } from "react";
 import { useAuthStore } from "../../../lib/store";
 import { useForm, useFieldArray } from "react-hook-form";
 import Image from "next/image";
 import User from "../../../assets/svg/user.svg";
+import { toast } from "react-toastify";
 
 interface Traveler {
   id: string;
@@ -22,12 +23,10 @@ interface Traveler {
 }
 interface SecondFlightFormProps {
   setFormNumber: (formNumber: number) => void;
-  toast: (message: string) => void;
 }
 
 const SecondFlightForm: React.FC<SecondFlightFormProps> = ({
   setFormNumber,
-  toast,
 }) => {
   const [FlightUsers, setFlightUsers] = React.useState<any>(null); // Cambia el tipo según tu necesidad
 
@@ -60,19 +59,23 @@ const SecondFlightForm: React.FC<SecondFlightFormProps> = ({
 
   const updateTrip = useAuthStore((state) => state.updateTrip);
 
-  const onSubmit = (data: { travelers: Traveler[] }) => {
-    toast.success("Se han guardado los datos del vuelo con exito !");
+  const onSubmit = useCallback(
+    (data: { travelers: Traveler[] }) => {
+      toast.success("Se han guardado los datos del vuelo con exito !");
 
-    const lastTrip =
-      useAuthStore.getState().trips[useAuthStore.getState().trips.length - 1];
-    if (lastTrip) {
-      updateTrip(lastTrip.id, {
-        travelerCount: data.travelers.length,
-        travelers: data.travelers,
-      });
-    }
-    setFormNumber(3);
-  };
+      const lastTrip =
+        useAuthStore.getState().trips[useAuthStore.getState().trips.length - 1];
+      if (lastTrip) {
+        updateTrip(lastTrip.id, {
+          travelerCount: data.travelers.length,
+          travelers: data.travelers,
+        });
+      }
+      setFormNumber(3);
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [setFormNumber, toast, updateTrip]
+  );
 
   const inputClass =
     "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm text-gray-700 pl-2";

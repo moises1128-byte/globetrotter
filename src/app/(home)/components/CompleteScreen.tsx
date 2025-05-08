@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Lottie from "lottie-react";
 import doneAnimation from "../../../assets/animations/done_animation.json";
 
@@ -11,14 +11,15 @@ const CompleteScreen: React.FC<CompleteScreen> = ({ setFormNumber }) => {
   const [ticketNumber, setTicketNumber] = useState<string>("");
 
   // Función para generar un string aleatorio de 8 dígitos
-  const generateRandomTicket = () => {
+
+  const generateRandomTicket = useCallback(() => {
     return Math.floor(10000000 + Math.random() * 90000000).toString();
-  };
+  }, []);
 
   useEffect(() => {
     // Generar el número de ticket al cargar el componente
     setTicketNumber(generateRandomTicket());
-  }, []);
+  }, [generateRandomTicket]);
 
   return (
     <div className="bg-white p-10 rounded-lg shadow-lg w-full max-w-md text-gray-700">

@@ -12,9 +12,9 @@ export default function Home() {
     <div className="min-h-screen bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center">
       <ToastContainer />
       {formNumber === 1 ? (
-        <FirstFlightForm setFormNumber={setFormNumber} toast={toast} />
+        <FirstFlightForm setFormNumber={setFormNumber} />
       ) : formNumber === 2 ? (
-        <SecondFlightForm setFormNumber={setFormNumber} toast={toast} />
+        <SecondFlightForm setFormNumber={setFormNumber} />
       ) : formNumber === 3 ? (
         <ResumeFlightForm setFormNumber={setFormNumber} toast={toast} />
       ) : (

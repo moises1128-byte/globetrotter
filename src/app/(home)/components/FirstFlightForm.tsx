@@ -8,6 +8,7 @@ import { useAuthStore } from "../../../lib/store";
 import Plane from "../../../assets/svg/plane.svg";
 import Money from "../../../assets/svg/money.svg";
 import Image from "next/image";
+import { toast } from "react-toastify";
 
 const schema = z.object({
   destination: z.string().min(1, "El destino es requerido"),
@@ -26,13 +27,9 @@ interface FormData {
 }
 interface FirstFlightForm {
   setFormNumber: (formNumber: number) => void;
-  toast: (message: string) => void;
 }
 
-const FirstFlightForm: React.FC<FirstFlightForm> = ({
-  setFormNumber,
-  toast,
-}) => {
+const FirstFlightForm: React.FC<FirstFlightForm> = ({ setFormNumber }) => {
   const {
     register,
     handleSubmit,
