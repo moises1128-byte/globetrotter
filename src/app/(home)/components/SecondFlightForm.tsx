@@ -1,0 +1,320 @@
+"use client";
+import React from "react";
+import { useAuthStore } from "../../../lib/store";
+import { useForm, useFieldArray } from "react-hook-form";
+import Image from "next/image";
+import User from "../../../assets/svg/user.svg";
+
+interface Traveler {
+  id: string;
+  fullName: string;
+  birthDate: string;
+  idDocument: string;
+  idDocumentType: string; // Added this field
+  hasPet: boolean;
+  petCount: number;
+  hasExtraBags: boolean;
+  extraBagsCount: number;
+  hasTravelInsurance: boolean;
+  hasPreferredSeats: boolean;
+  needsSpecialAssistance: boolean;
+  specialAssistanceDetails: string;
+}
+interface SecondFlightFormProps {
+  setFormNumber: (formNumber: number) => void;
+  toast: (message: string) => void;
+}
+
+const SecondFlightForm: React.FC<SecondFlightFormProps> = ({
+  setFormNumber,
+  toast,
+}) => {
+  const [FlightUsers, setFlightUsers] = React.useState<any>(null); // Cambia el tipo según tu necesidad
+
+  const { register, control, handleSubmit, watch } = useForm({
+    defaultValues: {
+      travelers: [
+        {
+          id: "",
+          fullName: "",
+          birthDate: "",
+          idDocumentType: "", // Added this field
+          idDocument: "",
+          hasPet: false,
+          petCount: 0,
+          hasExtraBags: false,
+          extraBagsCount: 0,
+          hasTravelInsurance: false,
+          hasPreferredSeats: false,
+          needsSpecialAssistance: false,
+          specialAssistanceDetails: "",
+        },
+      ],
+    },
+  });
+
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: "travelers",
+  });
+
+  const updateTrip = useAuthStore((state) => state.updateTrip);
+
+  const onSubmit = (data: { travelers: Traveler[] }) => {
+    toast.success("Se han guardado los datos del vuelo con exito !");
+
+    const lastTrip =
+      useAuthStore.getState().trips[useAuthStore.getState().trips.length - 1];
+    if (lastTrip) {
+      updateTrip(lastTrip.id, {
+        travelerCount: data.travelers.length,
+        travelers: data.travelers,
+      });
+    }
+    setFormNumber(3);
+  };
+
+  const inputClass =
+    "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm text-gray-700 pl-2";
+
+  return (
+    <div
+      className="bg-white p-10 rounded-lg shadow-lg w-full max-w-md"
+      style={{ maxHeight: "500px", overflowY: "auto" }}
+    >
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+        <div>
+          <label className="block text-xl font-medium text-gray-700">
+            <strong>Número de viajeros</strong>
+          </label>
+          <input
+            type="number"
+            onChange={(e) => {
+              const count = parseInt(e.target.value, 10);
+              const currentCount = fields.length;
+              setFlightUsers(e.target.value);
+              if (count !== currentCount) {
+                // Limpiar los datos anteriores
+                remove();
+                // Ajustar el número de campos de entrada
+                for (let i = 0; i < count; i++) {
+                  append({
+                    id: Date.now().toString() + i,
+                    fullName: "",
+                    birthDate: "",
+                    idDocumentType: "",
+                    idDocument: "",
+                    hasPet: false,
+                    petCount: 0,
+                    hasExtraBags: false,
+                    extraBagsCount: 0,
+                    hasTravelInsurance: false,
+                    hasPreferredSeats: false,
+                    needsSpecialAssistance: false,
+                    specialAssistanceDetails: "",
+                  });
+                }
+              }
+            }}
+            className={inputClass}
+          />
+        </div>
+
+        {FlightUsers > 0 ? (
+          <>
+            {fields.map((field, index) => (
+              <div key={field.id} className="space-y-4">
+                <hr className="my-4" />
+
+                <div className="flex justify-start gap-2">
+                  <Image src={User} alt="User" width={25} height={25} />
+                  <h3 className="text-lg font-medium text-gray-900">
+                    Viajero {index + 1}
+                  </h3>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">
+                    Nombre completo
+                  </label>
+                  <input
+                    type="text"
+                    {...register(`travelers.${index}.fullName`, {
+                      required: true,
+                    })}
+                    className={inputClass}
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">
+                    Fecha de nacimiento
+                  </label>
+                  <input
+                    type="date"
+                    {...register(`travelers.${index}.birthDate`, {
+                      required: true,
+                    })}
+                    className={inputClass}
+                    max={new Date().toISOString().split("T")[0]} // Restricción para no permitir fechas futuras
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">
+                    Documento de identidad
+                  </label>
+                  <div className="flex gap-2 items-center">
+                    <div className="w-1/3">
+                      <select
+                        {...register(`travelers.${index}.idDocumentType`, {
+                          required: true,
+                        })}
+                        className={inputClass}
+                      >
+                        <option value="">Selecciona</option>
+                        <option value="Pasaporte-">Pasaporte</option>
+                        <option value="V-">Cédula</option>
+                        <option value="J-">Rif</option>
+                      </select>
+                    </div>
+                    <div className="w-2/3">
+                      <input
+                        type="text"
+                        {...register(`travelers.${index}.idDocument`, {
+                          required: true,
+                        })}
+                        className={inputClass}
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <div className="flex gap-5 mb-4">
+                    <label className="block text-sm font-medium text-gray-700">
+                      ¿Viajas con Mascota?
+                    </label>
+                    <input
+                      type="checkbox"
+                      {...register(`travelers.${index}.hasPet`)}
+                      className="mt-1"
+                    />
+                  </div>
+                  {watch(`travelers.${index}.hasPet`) && (
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700">
+                        Cantidad de mascotas
+                      </label>
+                      <input
+                        type="number"
+                        {...register(`travelers.${index}.petCount`)}
+                        className={inputClass}
+                      />
+                    </div>
+                  )}
+                </div>
+
+                <div>
+                  <div className="flex gap-5 mb-4">
+                    <label className="block text-sm font-medium text-gray-700">
+                      ¿Necesitas maletas extras?
+                    </label>
+                    <input
+                      type="checkbox"
+                      {...register(`travelers.${index}.hasExtraBags`)}
+                      className="mt-1"
+                    />
+                  </div>
+                  {watch(`travelers.${index}.hasExtraBags`) && (
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700">
+                        ¿Cantidad de maletas extras?
+                      </label>
+                      <input
+                        type="number"
+                        {...register(`travelers.${index}.extraBagsCount`)}
+                        className={inputClass}
+                      />
+                    </div>
+                  )}
+                </div>
+
+                <div className="flex gap-5">
+                  <label className="block text-sm font-medium text-gray-700">
+                    ¿Deseas agregar seguro de viaje?
+                  </label>
+                  <input
+                    type="checkbox"
+                    {...register(`travelers.${index}.hasTravelInsurance`)}
+                    className="mt-1"
+                  />
+                </div>
+
+                <div className="flex gap-5">
+                  <label className="block text-sm font-medium text-gray-700">
+                    ¿Deseas seleccionar asientos preferenciales?
+                  </label>
+                  <input
+                    type="checkbox"
+                    {...register(`travelers.${index}.hasPreferredSeats`)}
+                    className="mt-1"
+                  />
+                </div>
+                <div>
+                  <div className="flex gap-5 mb-4">
+                    <label className="block text-sm font-medium text-gray-700">
+                      ¿Requiere asistencia especial?
+                    </label>
+                    <input
+                      type="checkbox"
+                      {...register(`travelers.${index}.needsSpecialAssistance`)}
+                      className="mt-1"
+                    />
+                  </div>
+                  {watch(`travelers.${index}.needsSpecialAssistance`) && (
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700">
+                        Detalles de asistencia especial
+                      </label>
+                      <textarea
+                        {...register(
+                          `travelers.${index}.specialAssistanceDetails`
+                        )}
+                        className={inputClass}
+                        maxLength={200}
+                      />
+                    </div>
+                  )}
+                </div>
+              </div>
+            ))}
+          </>
+        ) : (
+          <p className="text-red-500 text-xs mt-1">
+            Porfavor ingrese la cantidad de viajeros que van a ir en el vuelo.
+          </p>
+        )}
+
+        {FlightUsers > 0 ? (
+          <button
+            type="submit"
+            className="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 cursor-pointer"
+          >
+            Confirmar
+          </button>
+        ) : (
+          <div className="opacity-50 pointer-events-none">
+            <button
+              type="submit"
+              className="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 cursor-pointer"
+            >
+              Confirmar
+            </button>
+          </div>
+        )}
+      </form>
+    </div>
+  );
+};
+
+export default SecondFlightForm;
