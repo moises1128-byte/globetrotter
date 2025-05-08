@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import "react-toastify/dist/ReactToastify.css";
+import NavBar from "../components/navBarComponent";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,6 +29,11 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <header className="bg-gradient-to-r from-blue-500 to-purple-600 blur-[0.3px] opacity-80">
+          <div className="z-10">
+            <NavBar />
+          </div>
+        </header>
         {children}
       </body>
     </html>
