@@ -109,8 +109,8 @@ const ResumeFlightForm: React.FC<ResumeFlightFormProps> = ({
 
   return (
     <div
-      className="bg-white p-10 rounded-lg shadow-lg w-full max-w-md"
-      style={{ maxHeight: "500px", overflowY: "auto" }}
+      className="bg-white p-10 rounded-lg shadow-lg w-4xl"
+      style={{ maxHeight: "700px", overflowY: "auto" }}
     >
       <h2 className="text-2xl font-medium text-gray-700">
         <strong>Resumen del Viaje</strong>

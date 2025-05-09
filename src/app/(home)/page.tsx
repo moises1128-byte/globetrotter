@@ -9,7 +9,7 @@ import { ToastContainer, toast } from "react-toastify";
 export default function Home() {
   const [formNumber, setFormNumber] = useState(1);
   return (
-    <div className="min-h-screen bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center">
+    <div className="min-h-screen flex items-center justify-center">
       <ToastContainer />
       {formNumber === 1 ? (
         <FirstFlightForm setFormNumber={setFormNumber} />

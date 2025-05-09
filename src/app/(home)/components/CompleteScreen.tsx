@@ -14,7 +14,7 @@ const CompleteScreen: React.FC<CompleteScreen> = ({ setFormNumber }) => {
   const lastTrip = trips[trips.length - 1];
 
   return (
-    <div className="bg-white p-10 rounded-lg shadow-lg w-full max-w-md text-gray-700">
+    <div className="bg-white p-10 rounded-lg  text-gray-700 w-4xl">
       <div className="flex justify-center self-center">
         <Lottie
           className="w-50 h-50"

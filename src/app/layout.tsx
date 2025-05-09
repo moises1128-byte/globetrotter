@@ -27,12 +27,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gradient-to-r from-blue-100 to-purple-200`}
       >
-        <header className="bg-gradient-to-r from-blue-500 to-purple-600 blur-[0.3px] opacity-80">
-          <div className="z-10">
-            <NavBar />
-          </div>
+        <header
+          className=" backdrop-blur-[2px] shadow-md fixed w-full z-10"
+          style={{ backgroundColor: "rgba(255, 255, 255, 0.2)" }}
+        >
+          <NavBar />
         </header>
         {children}
       </body>

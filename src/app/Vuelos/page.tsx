@@ -5,13 +5,12 @@ import React from "react";
 
 export default function Home() {
   const numberOfTrips = useAuthStore((state) => state.numberOfTrips);
-  console.log("numberOfTrips", numberOfTrips);
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center">
+    <div className="min-h-screen flex items-center justify-center">
       <div
-        className="bg-white p-10 rounded-lg shadow-lg  w-fit"
-        style={{ maxHeight: "500px", overflowY: "auto" }}
+        className="bg-white p-10 rounded-lg shadow-lg  w-4xl"
+        style={{ maxHeight: "700px", overflowY: "auto" }}
       >
         <p className="text-gray-700">
           <strong>Mis Vuelos</strong>

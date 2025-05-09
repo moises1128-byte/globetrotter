@@ -73,19 +73,18 @@ const SecondFlightForm: React.FC<SecondFlightFormProps> = ({
       }
       setFormNumber(3);
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [setFormNumber, toast, updateTrip]
+    [setFormNumber, updateTrip]
   );
 
   const inputClass =
-    "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm text-gray-700 pl-2";
+    "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm text-gray-700 pl-2 h-10";
 
   return (
     <div
-      className="bg-white p-10 rounded-lg shadow-lg w-full max-w-md"
-      style={{ maxHeight: "500px", overflowY: "auto" }}
+      className="bg-white p-10 rounded-lg shadow-lg w-4xl"
+      style={{ maxHeight: "700px", overflowY: "auto" }}
     >
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-7">
         <div>
           <label className="block text-xl font-medium text-gray-700">
             <strong>Número de viajeros</strong>
