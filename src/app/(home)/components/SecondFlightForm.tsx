@@ -28,7 +28,7 @@ interface SecondFlightFormProps {
 const SecondFlightForm: React.FC<SecondFlightFormProps> = ({
   setFormNumber,
 }) => {
-  const [FlightUsers, setFlightUsers] = React.useState<any>(null); // Cambia el tipo según tu necesidad
+  const [FlightUsers, setFlightUsers] = React.useState<number | null>(null); // Cambia el tipo según tu necesidad
 
   const { register, control, handleSubmit, watch } = useForm({
     defaultValues: {
@@ -94,7 +94,9 @@ const SecondFlightForm: React.FC<SecondFlightFormProps> = ({
             onChange={(e) => {
               const count = parseInt(e.target.value, 10);
               const currentCount = fields.length;
-              setFlightUsers(e.target.value);
+              setFlightUsers(
+                e.target.value ? parseInt(e.target.value, 10) : null
+              );
               if (count !== currentCount) {
                 // Limpiar los datos anteriores
                 remove();
@@ -122,7 +124,7 @@ const SecondFlightForm: React.FC<SecondFlightFormProps> = ({
           />
         </div>
 
-        {FlightUsers > 0 ? (
+        {FlightUsers && FlightUsers > 0 ? (
           <>
             {fields.map((field, index) => (
               <div key={field.id} className="space-y-4">
@@ -297,7 +299,7 @@ const SecondFlightForm: React.FC<SecondFlightFormProps> = ({
           </p>
         )}
 
-        {FlightUsers > 0 ? (
+        {FlightUsers !== null && FlightUsers > 0 ? (
           <button
             type="submit"
             className="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 cursor-pointer"
