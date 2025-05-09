@@ -24,34 +24,45 @@ interface Trip {
   price: number;
   travelerCount: number;
   travelers: Traveler[];
+  totalPrice: number; // Precio total del viaje
+  FlightNumber: string; // Número de vuelo
 }
 
 interface AuthState {
   trips: Trip[];
+  numberOfTrips: Trip[]; // Arreglo de objetos para rastrear los viajes
   addTrip: (trip: Trip) => void;
   updateTrip: (id: string, updates: Partial<Trip>) => void;
   setTrip: (trips: Trip[]) => void;
+  saveIndividualTrip: (trip: Trip) => void;
 }
 
 export const useAuthStore = create<AuthState>()(
   persist(
     (set) => ({
-      trips: [],
+      trips: [], // Arreglo que almacena los viajes completos
+      numberOfTrips: [], // Arreglo que almacena un resumen de los viajes
+
       addTrip: (trip: Trip) => {
         set((state) => ({
           trips: [...state.trips, trip],
         }));
       },
-      updateTrip: (id, updates) => {
+      updateTrip: (id, updatedFields) => {
         set((state) => ({
           trips: state.trips.map((trip) =>
-            trip.id === id ? { ...trip, ...updates } : trip
+            trip.id === id ? { ...trip, ...updatedFields } : trip
           ),
         }));
       },
       setTrip: (trips) => {
         set(() => ({
           trips,
+        }));
+      },
+      saveIndividualTrip: (trip: Trip) => {
+        set((state) => ({
+          numberOfTrips: [...state.numberOfTrips, trip], // Agrega el nuevo viaje al arreglo existente
         }));
       },
     }),

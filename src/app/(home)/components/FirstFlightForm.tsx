@@ -15,7 +15,7 @@ const schema = z.object({
   startDate: z.string({ required_error: "La fecha de inicio es requerida" }),
   endDate: z.string({ required_error: "La fecha destino es requerida" }),
   flightClass: z.string().min(1, "La clase de vuelo es requerida"),
-  price: z.number().positive("El precio debe ser positivo"),
+  price: z.number().optional(),
 });
 
 interface FormData {
@@ -68,7 +68,14 @@ const FirstFlightForm: React.FC<FirstFlightForm> = ({ setFormNumber }) => {
 
     toast.success("Se han guardado los datos del vuelo con éxito!");
     setTrip([
-      { id: Date.now().toString(), ...data, travelerCount: 1, travelers: [] },
+      {
+        id: Date.now().toString(),
+        ...data,
+        travelerCount: 1,
+        travelers: [],
+        totalPrice: 0,
+        FlightNumber: "",
+      },
     ]);
     setFormNumber(2);
   };
@@ -199,16 +206,11 @@ const FirstFlightForm: React.FC<FirstFlightForm> = ({ setFormNumber }) => {
           <div className="relative">
             <input
               type="number"
-              {...register("price", { required: "El precio es requerido" })}
+              {...register("price")}
               className={inputClass}
               readOnly
             />
           </div>
-          {errors.price && (
-            <p className="text-red-500 text-xs mt-1">
-              {String(errors.price.message)}
-            </p>
-          )}
         </div>
 
         <button

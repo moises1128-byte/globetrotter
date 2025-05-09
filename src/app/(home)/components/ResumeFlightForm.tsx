@@ -1,5 +1,6 @@
 "use client";
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect, useState } from "react";
+
 import { useAuthStore } from "../../../lib/store";
 
 interface ResumeFlightFormProps {
@@ -69,6 +70,34 @@ const ResumeFlightForm: React.FC<ResumeFlightFormProps> = ({
   }, [calculateTotalViajero, lastTrip.travelers]);
 
   const inputClass = "sm:text-sm text-gray-700 pl-2";
+
+  const saveIndividualTrip = useAuthStore((state) => state.saveIndividualTrip);
+  const updateTrip = useAuthStore((state) => state.updateTrip);
+
+  const [ticketNumber, setTicketNumber] = useState<string>("");
+
+  // Función para generar un string aleatorio de 8 dígitos
+
+  const generateRandomTicket = useCallback(() => {
+    return Math.floor(10000000 + Math.random() * 90000000).toString();
+  }, []);
+
+  const handleSubmit = () => {
+    saveIndividualTrip(lastTrip);
+    setFormNumber(4);
+
+    updateTrip(lastTrip.id, {
+      totalPrice: calculateTotal(),
+      FlightNumber: ticketNumber,
+    });
+
+    toast("Vuelo confirmado con éxito !");
+  };
+
+  useEffect(() => {
+    // Generar el número de ticket al cargar el componente
+    setTicketNumber(generateRandomTicket());
+  }, [generateRandomTicket]);
 
   return (
     <div
@@ -189,12 +218,10 @@ const ResumeFlightForm: React.FC<ResumeFlightFormProps> = ({
           <p className="text-xl font-bold text-gray-700">
             Total a Pagar: ${calculateTotal()}
           </p>
+
           <button
             type="submit"
-            onClick={() => {
-              setFormNumber(4);
-              toast("Vuelo confirmado con éxito !");
-            }}
+            onClick={() => handleSubmit()}
             className="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 mt-4 cursor-pointer"
           >
             Finalizar
