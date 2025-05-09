@@ -93,7 +93,7 @@ const FirstFlightForm: React.FC<FirstFlightForm> = ({ setFormNumber }) => {
         <div>
           <div className="flex justify-start gap-2">
             <label className="block text-sm font-medium text-gray-700">
-              Destino
+              <strong>Destino</strong>
             </label>
 
             <Image src={Plane} alt="Plane" width={15} height={15} />
@@ -125,7 +125,7 @@ const FirstFlightForm: React.FC<FirstFlightForm> = ({ setFormNumber }) => {
 
         <div>
           <label className="block text-sm font-medium text-gray-700">
-            Fecha de inicio
+            <strong>Fecha de inicio</strong>
           </label>
           <input
             type="date"
@@ -144,7 +144,7 @@ const FirstFlightForm: React.FC<FirstFlightForm> = ({ setFormNumber }) => {
 
         <div>
           <label className="block text-sm font-medium text-gray-700">
-            Fecha destino
+            <strong>Fecha destino</strong>
           </label>
           <input
             type="date"
@@ -167,7 +167,7 @@ const FirstFlightForm: React.FC<FirstFlightForm> = ({ setFormNumber }) => {
 
         <div>
           <label className="block text-sm font-medium text-gray-700">
-            Clase de vuelo
+            <strong>Clase de vuelo</strong>
           </label>
           <select
             {...register("flightClass", {
@@ -198,7 +198,7 @@ const FirstFlightForm: React.FC<FirstFlightForm> = ({ setFormNumber }) => {
         <div>
           <div className="flex justify-start gap-2">
             <label className="block text-sm font-medium text-gray-700">
-              Precio
+              <strong>Precio</strong>
             </label>
 
             <Image src={Money} alt="Money" width={15} height={15} />

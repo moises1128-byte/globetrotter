@@ -12,7 +12,7 @@ export default function Home() {
         className="bg-white p-10 rounded-lg shadow-lg  w-4xl"
         style={{ maxHeight: "700px", overflowY: "auto" }}
       >
-        <p className="text-gray-700">
+        <p className="text-gray-700 underline">
           <strong>Mis Vuelos</strong>
         </p>
         <table className="table-auto w-full mt-4 border-collapse border border-gray-300">

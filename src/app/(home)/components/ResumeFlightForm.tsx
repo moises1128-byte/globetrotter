@@ -124,34 +124,19 @@ const ResumeFlightForm: React.FC<ResumeFlightFormProps> = ({
             <React.Fragment key={index}>
               <div className="mb-4">
                 <p className={inputClass}>
-                  <strong className="text-sm font-medium text-gray-700">
-                    Destino:
-                  </strong>{" "}
-                  {element.destination}
+                  <strong>Destino:</strong> {element.destination}
                 </p>
                 <p className={inputClass}>
-                  <strong className="text-sm font-medium text-gray-700">
-                    Fecha de Inicio:
-                  </strong>{" "}
-                  {element.startDate}
+                  <strong>Fecha de Inicio:</strong> {element.startDate}
                 </p>
                 <p className={inputClass}>
-                  <strong className="text-sm font-medium text-gray-700">
-                    Fecha de Destino::
-                  </strong>{" "}
-                  {element.endDate}
+                  <strong>Fecha de Destino::</strong> {element.endDate}
                 </p>
                 <p className={inputClass}>
-                  <strong className="text-sm font-medium text-gray-700">
-                    Clase de Vuelo:
-                  </strong>{" "}
-                  {element.flightClass}
+                  <strong>Clase de Vuelo:</strong> {element.flightClass}
                 </p>
                 <p className={inputClass}>
-                  <strong className="text-sm font-medium text-gray-700">
-                    Costo de Destino:
-                  </strong>{" "}
-                  ${element.price}
+                  <strong>Costo de Destino:</strong> ${element.price}
                 </p>
               </div>
             </React.Fragment>
@@ -164,58 +149,40 @@ const ResumeFlightForm: React.FC<ResumeFlightFormProps> = ({
                   <strong>Viajero {index + 1}</strong>
                 </h3>
                 <p className={inputClass}>
-                  <strong className="text-sm font-medium text-gray-700">
-                    Nombre:
-                  </strong>{" "}
-                  {traveler.fullName}
+                  <strong>Nombre:</strong> {traveler.fullName}
                 </p>
                 <p className={inputClass}>
-                  <strong className="text-sm font-medium text-gray-700">
-                    Fecha de Nacimiento:
-                  </strong>{" "}
-                  {traveler.birthDate}
+                  <strong>Fecha de Nacimiento:</strong> {traveler.birthDate}
                 </p>
                 <p className={inputClass}>
-                  <strong className="text-sm font-medium text-gray-700">
-                    Documento de Identidad:
-                  </strong>{" "}
+                  <strong>Documento de Identidad:</strong>{" "}
                   {traveler.idDocumentType}
                   {traveler.idDocument}
                 </p>
                 <p className={inputClass}>
-                  <strong className="text-sm font-medium text-gray-700">
-                    Mascotas:
-                  </strong>{" "}
+                  <strong>Mascotas:</strong>{" "}
                   {traveler.hasPet ? traveler.petCount : 0}
                 </p>
                 <p className={inputClass}>
-                  <strong className="text-sm font-medium text-gray-700">
-                    Maletas Extras:
-                  </strong>{" "}
+                  <strong>Maletas Extras:</strong>{" "}
                   {traveler.hasExtraBags ? traveler.extraBagsCount : 0}
                 </p>
                 <p className={inputClass}>
-                  <strong className="text-sm font-medium text-gray-700">
-                    Seguro de Viaje:
-                  </strong>{" "}
+                  <strong>Seguro de Viaje:</strong>{" "}
                   {traveler.hasTravelInsurance ? "Sí" : "No"}
                 </p>
                 <p className={inputClass}>
-                  <strong className="text-sm font-medium text-gray-700">
-                    Asientos Preferenciales:
-                  </strong>{" "}
+                  <strong>Asientos Preferenciales:</strong>{" "}
                   {traveler.hasPreferredSeats ? "Sí" : "No"}
                 </p>
                 <p className={inputClass}>
-                  <strong className="text-sm font-medium text-gray-700">
-                    Asistencia Especial:
-                  </strong>{" "}
+                  <strong>Asistencia Especial:</strong>{" "}
                   {traveler.needsSpecialAssistance
                     ? traveler.specialAssistanceDetails
                     : "No"}
                 </p>
                 <p className={inputClass}>
-                  <strong className="text-sm font-medium text-gray-700">
+                  <strong>
                     Total Viajero: ${calculateTotalViajero(traveler)}
                   </strong>{" "}
                 </p>

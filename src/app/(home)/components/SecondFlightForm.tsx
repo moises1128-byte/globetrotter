@@ -136,7 +136,7 @@ const SecondFlightForm: React.FC<SecondFlightFormProps> = ({
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700">
-                    Nombre completo
+                    <strong>Nombre completo</strong>
                   </label>
                   <input
                     type="text"
@@ -149,7 +149,7 @@ const SecondFlightForm: React.FC<SecondFlightFormProps> = ({
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700">
-                    Fecha de nacimiento
+                    <strong>Fecha de nacimiento</strong>
                   </label>
                   <input
                     type="date"
@@ -163,7 +163,7 @@ const SecondFlightForm: React.FC<SecondFlightFormProps> = ({
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700">
-                    Documento de identidad
+                    <strong>Documento de identidad</strong>
                   </label>
                   <div className="flex gap-2 items-center">
                     <div className="w-1/3">
@@ -205,7 +205,7 @@ const SecondFlightForm: React.FC<SecondFlightFormProps> = ({
                   {watch(`travelers.${index}.hasPet`) && (
                     <div>
                       <label className="block text-sm font-medium text-gray-700">
-                        Cantidad de mascotas
+                        <strong>Cantidad de mascotas</strong>
                       </label>
                       <input
                         type="number"
@@ -230,7 +230,7 @@ const SecondFlightForm: React.FC<SecondFlightFormProps> = ({
                   {watch(`travelers.${index}.hasExtraBags`) && (
                     <div>
                       <label className="block text-sm font-medium text-gray-700">
-                        ¿Cantidad de maletas extras?
+                        <strong>¿Cantidad de maletas extras?</strong>
                       </label>
                       <input
                         type="number"
