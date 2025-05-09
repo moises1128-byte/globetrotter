@@ -23,7 +23,7 @@ interface FormData {
   startDate: string;
   endDate: string;
   flightClass: string;
-  price: number;
+  price?: number;
 }
 interface FirstFlightForm {
   setFormNumber: (formNumber: number) => void;
@@ -71,6 +71,7 @@ const FirstFlightForm: React.FC<FirstFlightForm> = ({ setFormNumber }) => {
       {
         id: Date.now().toString(),
         ...data,
+        price: data.price ?? 0, // Ensure price is always a number
         travelerCount: 1,
         travelers: [],
         totalPrice: 0,
