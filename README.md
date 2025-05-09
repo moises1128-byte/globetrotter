@@ -19,3 +19,11 @@ Antes de comenzar, asegúrate de tener instalados los siguientes programas:
    ```bash
    git clone https://github.com/tu-usuario/globetrotter.git
    cd globetrotter
+
+## Correr el Proyecto
+ -En dev
+   npm run dev
+
+ -Produccion
+   npm run build
+   npm start
