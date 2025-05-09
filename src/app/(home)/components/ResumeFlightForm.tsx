@@ -82,15 +82,23 @@ const ResumeFlightForm: React.FC<ResumeFlightFormProps> = ({
     return Math.floor(10000000 + Math.random() * 90000000).toString();
   }, []);
 
-  const handleSubmit = () => {
-    saveIndividualTrip(lastTrip);
-    setFormNumber(4);
-
+  const handleSubmit = async () => {
+    // Espera a que updateTrip termine
     updateTrip(lastTrip.id, {
       totalPrice: calculateTotal(),
       FlightNumber: ticketNumber,
     });
 
+    const lastTrips =
+      useAuthStore.getState().trips[useAuthStore.getState().trips.length - 1];
+    if (lastTrips) {
+      saveIndividualTrip(lastTrips);
+    }
+
+    // Cambia el formulario después de que ambas funciones se hayan ejecutado
+    setFormNumber(4);
+
+    // Muestra el mensaje de confirmación
     toast("Vuelo confirmado con éxito !");
   };
 

@@ -44,30 +44,38 @@ export const useAuthStore = create<AuthState>()(
       numberOfTrips: [], // Arreglo que almacena un resumen de los viajes
 
       addTrip: (trip: Trip) => {
+        console.log("addTrip", trip);
         set((state) => ({
           trips: [...state.trips, trip],
         }));
       },
       updateTrip: (id, updatedFields) => {
-        set((state) => ({
-          trips: state.trips.map((trip) =>
-            trip.id === id ? { ...trip, ...updatedFields } : trip
-          ),
-        }));
+        console.log("updateTrip", id, updatedFields);
+        return new Promise<void>((resolve) => {
+          set((state) => {
+            const updatedTrips = state.trips.map((trip) =>
+              trip.id === id ? { ...trip, ...updatedFields } : trip
+            );
+            resolve(); // Resuelve la promesa después de actualizar el estado
+            return { trips: updatedTrips };
+          });
+        });
       },
       setTrip: (trips) => {
+        console.log("setTrip", trips);
         set(() => ({
           trips,
         }));
       },
       saveIndividualTrip: (trip: Trip) => {
+        console.log("saveIndividualTrip", trip);
         set((state) => ({
           numberOfTrips: [...state.numberOfTrips, trip], // Agrega el nuevo viaje al arreglo existente
         }));
       },
     }),
     {
-      name: "auth-storage",
+      name: "globetrotter-storage",
     }
   )
 );
