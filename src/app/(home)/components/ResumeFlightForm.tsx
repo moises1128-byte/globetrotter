@@ -1,11 +1,10 @@
 "use client";
 import React, { useCallback, useEffect, useState } from "react";
-
+import { toast } from "react-toastify";
 import { useAuthStore } from "../../../lib/store";
 
 interface ResumeFlightFormProps {
   setFormNumber: (formNumber: number) => void;
-  toast: (message: string) => void;
 }
 
 // Asegurar que el tipo Traveler esté correctamente definido
@@ -27,7 +26,6 @@ interface Traveler {
 
 const ResumeFlightForm: React.FC<ResumeFlightFormProps> = ({
   setFormNumber,
-  toast,
 }) => {
   const trips = useAuthStore.getState().trips.map((trip) => ({
     ...trip,

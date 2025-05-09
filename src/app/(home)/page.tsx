@@ -4,7 +4,7 @@ import FirstFlightForm from "./components/FirstFlightForm";
 import SecondFlightForm from "./components/SecondFlightForm";
 import ResumeFlightForm from "./components/ResumeFlightForm";
 import CompleteScreen from "./components/CompleteScreen";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 
 export default function Home() {
   const [formNumber, setFormNumber] = useState(1);
@@ -16,7 +16,7 @@ export default function Home() {
       ) : formNumber === 2 ? (
         <SecondFlightForm setFormNumber={setFormNumber} />
       ) : formNumber === 3 ? (
-        <ResumeFlightForm setFormNumber={setFormNumber} toast={toast} />
+        <ResumeFlightForm setFormNumber={setFormNumber} />
       ) : (
         <CompleteScreen setFormNumber={setFormNumber} />
       )}
