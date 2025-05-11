@@ -12,7 +12,8 @@ const navBarComponent: React.FC<NavBarComponentProps> = () => {
       <div style={{ position: "relative", bottom: "10px" }}>
         <Image src={Logo} alt="Logo" width={200} height={200} />
       </div>
-      <div className="pr-4 flex flex-row gap-4 items-center">
+      <div className="pr-4 flex flex-row gap-4 items-center max-sm:flex-col max-sm:text-center max-sm:gap-2">
+        {/* max-width: 720px */}
         <Link href="/">
           <strong>
             <p className=" hover:underline hover:cursor-pointer text-gray-700">

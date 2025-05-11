@@ -30,7 +30,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gradient-to-r from-blue-100 to-purple-200`}
       >
         <header
-          className=" backdrop-blur-[2px] shadow-md fixed w-full z-10"
+          className="backdrop-blur-[2px] shadow-md w-full z-10 sticky"
           style={{ backgroundColor: "rgba(255, 255, 255, 0.2)" }}
         >
           <NavBar />

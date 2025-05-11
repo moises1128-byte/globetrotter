@@ -7,7 +7,7 @@ export default function Home() {
   const numberOfTrips = useAuthStore((state) => state.numberOfTrips);
 
   return (
-    <div className="min-h-screen flex items-center justify-center">
+    <div className="min-h-screen flex items-center justify-center px-10">
       <div
         className="bg-white p-10 rounded-lg shadow-lg  w-4xl"
         style={{ maxHeight: "700px", overflowY: "auto" }}
