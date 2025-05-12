@@ -6,8 +6,10 @@ import React from "react";
 export default function Home() {
   const numberOfTrips = useAuthStore((state) => state.numberOfTrips);
 
+  console.log(numberOfTrips, "test");
+
   return (
-    <div className="min-h-screen flex items-center justify-center px-10">
+    <div className="min-h-screen flex items-center justify-center px-10 md:py-10">
       <div
         className="bg-white p-10 rounded-lg shadow-lg  w-4xl"
         style={{ maxHeight: "700px", overflowY: "auto" }}
@@ -31,6 +33,9 @@ export default function Home() {
                 Fecha de Regreso
               </th>
               <th className="border border-gray-300 px-4 py-2 text-gray-700">
+                Pasajeros
+              </th>
+              <th className="border border-gray-300 px-4 py-2 text-gray-700">
                 Precio
               </th>
             </tr>
@@ -49,6 +54,9 @@ export default function Home() {
                 </td>
                 <td className="border border-gray-300 px-4 py-2 text-gray-700 text-center">
                   {trip.endDate}
+                </td>
+                <td className="border border-gray-300 px-4 py-2 text-gray-700 text-center">
+                  {trip.travelers.length}
                 </td>
                 <td className="border border-gray-300 px-4 py-2 text-gray-700 text-center">
                   ${trip.totalPrice}
