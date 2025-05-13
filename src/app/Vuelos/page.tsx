@@ -6,8 +6,6 @@ import React from "react";
 export default function Home() {
   const numberOfTrips = useAuthStore((state) => state.numberOfTrips);
 
-  console.log(numberOfTrips, "test");
-
   return (
     <div className="min-h-screen flex items-center justify-center px-10 md:py-10">
       <div

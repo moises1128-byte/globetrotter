@@ -77,7 +77,7 @@ const SecondFlightForm: React.FC<SecondFlightFormProps> = ({
   );
 
   const inputClass =
-    "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm text-gray-700 pl-2 h-10";
+    "mt-1 block w-full rounded-md border-gray-50 border-[2px] focus:outline-none shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm text-gray-700 px-2 h-10";
 
   return (
     <div
