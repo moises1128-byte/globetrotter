@@ -7,8 +7,8 @@ import { Flights } from "../../../utils/mock_data";
 import { useAuthStore } from "../../../lib/store";
 import Plane from "../../../assets/svg/plane.svg";
 import Money from "../../../assets/svg/money.svg";
-import Image from "next/image";
 import { toast } from "react-toastify";
+import InputComponent from "@/components/inputComponent";
 
 const schema = z.object({
   destination: z.string().min(1, "El destino es requerido"),
@@ -81,9 +81,6 @@ const FirstFlightForm: React.FC<FirstFlightForm> = ({ setFormNumber }) => {
     setFormNumber(2);
   };
 
-  const inputClass =
-    "mt-1 block w-full rounded-md border-gray-50 border-[2px] focus:outline-none shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm text-gray-700 px-2 h-10";
-
   return (
     <div className="bg-white p-10 rounded-lg shadow-lg w-4xl">
       <p className="block text-xl font-medium text-gray-700 text-center mb-5">
@@ -91,130 +88,64 @@ const FirstFlightForm: React.FC<FirstFlightForm> = ({ setFormNumber }) => {
       </p>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-7">
-        <div>
-          <div className="flex justify-start gap-2">
-            <label className="block text-sm font-medium text-gray-700">
-              <strong>Destino</strong>
-            </label>
+        <InputComponent
+          Icon={Plane}
+          Title="Destino"
+          register={register}
+          Flights={Flights}
+          errors={errors.destination}
+          type="select"
+          name="destination"
+          required="El destino es requerido"
+          value={false}
+          arraySelection="destination"
+        />
 
-            <Image src={Plane} alt="Plane" width={15} height={15} />
-          </div>
-          <select
-            {...register("destination", {
-              required: "El destino es requerido",
-            })}
-            className={inputClass}
-          >
-            {Array.from(
-              new Set(
-                Flights.map(
-                  (flight: { destination: string }) => flight.destination
-                )
-              )
-            ).map((destination: string) => (
-              <option key={destination} value={destination}>
-                {destination}
-              </option>
-            ))}
-          </select>
-          {errors.destination && (
-            <p className="text-red-500 text-xs mt-1">
-              {String(errors.destination.message)}
-            </p>
-          )}
-        </div>
+        <InputComponent
+          Title="Fecha de inicio"
+          register={register}
+          errors={errors.startDate}
+          type="date"
+          name="startDate"
+          min={new Date().toISOString().split("T")[0]}
+          required="La fecha de inicio es requerida"
+        />
 
-        <div>
-          <label className="block text-sm font-medium text-gray-700">
-            <strong>Fecha de inicio</strong>
-          </label>
-          <input
-            type="date"
-            {...register("startDate", {
-              required: "La fecha de inicio es requerida",
-            })}
-            className={inputClass}
-            min={new Date().toISOString().split("T")[0]}
-          />
-          {errors.startDate && (
-            <p className="text-red-500 text-xs mt-1">
-              {String(errors.startDate.message)}
-            </p>
-          )}
-        </div>
+        <InputComponent
+          Title="Fecha de destino"
+          register={register}
+          errors={errors.endDate}
+          type="date"
+          name="endDate"
+          min={
+            watch("startDate")
+              ? new Date(watch("startDate")).toISOString().split("T")[0]
+              : new Date().toISOString().split("T")[0]
+          }
+          required="La fecha destino es requerida"
+        />
 
-        <div>
-          <label className="block text-sm font-medium text-gray-700">
-            <strong>Fecha destino</strong>
-          </label>
-          <input
-            type="date"
-            {...register("endDate", {
-              required: "La fecha destino es requerida",
-            })}
-            className={inputClass}
-            min={
-              watch("startDate")
-                ? new Date(watch("startDate")).toISOString().split("T")[0]
-                : new Date().toISOString().split("T")[0]
-            }
-          />
-          {errors.endDate && (
-            <p className="text-red-500 text-xs mt-1">
-              {String(errors.endDate.message)}
-            </p>
-          )}
-        </div>
+        <InputComponent
+          Title="Clase de vuelo"
+          register={register}
+          Flights={Flights}
+          errors={errors.flightClass}
+          type="select"
+          name="flightClass"
+          required="La clase de vuelo es requerida"
+          value={true}
+          arraySelection="flightClass"
+        />
 
-        <div>
-          <label className="block text-sm font-medium text-gray-700">
-            <strong>Clase de vuelo</strong>
-          </label>
-          <select
-            {...register("flightClass", {
-              required: "La clase de vuelo es requerida",
-            })}
-            className={inputClass}
-          >
-            <option value="">Seleccione una clase</option>
-            {Array.from(
-              new Set(
-                Flights.map((flight: { class: string }) =>
-                  flight.class.toLowerCase()
-                )
-              )
-            ).map((flightClass: string) => (
-              <option key={flightClass} value={flightClass}>
-                {flightClass.charAt(0).toUpperCase() + flightClass.slice(1)}
-              </option>
-            ))}
-          </select>
-          {errors.flightClass && (
-            <p className="text-red-500 text-xs mt-1">
-              {String(errors.flightClass.message)}
-            </p>
-          )}
-        </div>
-
-        <div>
-          <div className="flex justify-start gap-2">
-            <label className="block text-sm font-medium text-gray-700">
-              <strong>Precio</strong>
-            </label>
-
-            <Image src={Money} alt="Money" width={15} height={15} />
-          </div>
-          <div className="relative pointer-events-none">
-            <input
-              type="number"
-              {...register("price")}
-              className={inputClass}
-              readOnly
-              placeholder="$$$"
-              value={watch("price") ?? ""}
-            />
-          </div>
-        </div>
+        <InputComponent
+          Title="Precio"
+          register={register}
+          type="input"
+          name="price"
+          required="El precio es requerido"
+          Icon={Money}
+          watch={watch}
+        />
 
         <button
           type="submit"
