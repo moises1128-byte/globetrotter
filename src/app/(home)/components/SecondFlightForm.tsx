@@ -28,7 +28,7 @@ interface SecondFlightFormProps {
 const SecondFlightForm: React.FC<SecondFlightFormProps> = ({
   setFormNumber,
 }) => {
-  const [FlightUsers, setFlightUsers] = React.useState<number | null>(null); // Cambia el tipo según tu necesidad
+  const [FlightUsers, setFlightUsers] = React.useState<number | null>(null);
 
   const { register, control, handleSubmit, watch } = useForm({
     defaultValues: {
@@ -37,7 +37,7 @@ const SecondFlightForm: React.FC<SecondFlightFormProps> = ({
           id: "",
           fullName: "",
           birthDate: "",
-          idDocumentType: "", // Added this field
+          idDocumentType: "",
           idDocument: "",
           hasPet: false,
           petCount: 0,

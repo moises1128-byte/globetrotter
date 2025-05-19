@@ -15,7 +15,7 @@ const navBarComponent: React.FC<NavBarComponentProps> = () => {
       <div className="pr-4 flex flex-row gap-4 items-center max-sm:flex-col max-sm:text-center max-sm:gap-2">
         <Link href="/">
           <strong>
-            <p className="hover:underline hover:text-indigo-500 text-gray-700">
+            <p className="hover:text-indigo-500 transition-colors duration-500 text-gray-700">
               Inicio
             </p>
           </strong>
@@ -23,7 +23,7 @@ const navBarComponent: React.FC<NavBarComponentProps> = () => {
 
         <Link href="/Vuelos">
           <strong>
-            <p className="hover:underline hover:text-indigo-500 text-gray-700">
+            <p className="hover:text-indigo-500 transition-colors duration-500 text-gray-700">
               Mis Vuelos
             </p>
           </strong>
