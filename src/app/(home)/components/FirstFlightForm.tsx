@@ -3,12 +3,12 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { Flights } from "../../../utils/mock_data";
 import { useAuthStore } from "../../../lib/store";
 import Plane from "../../../assets/svg/plane.svg";
 import Money from "../../../assets/svg/money.svg";
 import { toast } from "react-toastify";
 import InputComponent from "@/components/inputComponent";
+import { getFlights } from "@/lib/flights";
 
 const schema = z.object({
   destination: z.string().min(1, "El destino es requerido"),
@@ -40,20 +40,41 @@ const FirstFlightForm: React.FC<FirstFlightForm> = ({ setFormNumber }) => {
     resolver: zodResolver(schema),
   });
 
+  interface Flight {
+    destination: string;
+    class: string;
+    priceUSD: number;
+  }
+
+  const [flights, setFlights] = React.useState<Flight[]>([]);
+
+  React.useEffect(() => {
+    const fetchFlights = async () => {
+      const flightsData = await getFlights();
+      setFlights(flightsData);
+    };
+    fetchFlights();
+  }, []);
+
   const setTrip = useAuthStore((state) => state.setTrip);
 
   React.useEffect(() => {
-    const selectedDestination = watch("destination");
+    const fetchFlight = async () => {
+      const selectedDestination = watch("destination");
 
-    const selectedFlight = Flights.find(
-      (flight: { destination: string; class: string; priceUSD: number }) =>
-        flight.destination === selectedDestination &&
-        flight.class.toLowerCase() === watch("flightClass")
-    );
+      const flightsData = await flights;
+      const selectedFlight = flightsData.find(
+        (flight: { destination: string; class: string; priceUSD: number }) =>
+          flight.destination === selectedDestination &&
+          flight.class.toLowerCase() === watch("flightClass")
+      );
 
-    if (selectedFlight) {
-      setValue("price", selectedFlight.priceUSD);
-    }
+      if (selectedFlight) {
+        setValue("price", selectedFlight.priceUSD);
+      }
+    };
+
+    fetchFlight();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [watch("destination"), watch("flightClass"), setValue]);
 
@@ -92,7 +113,7 @@ const FirstFlightForm: React.FC<FirstFlightForm> = ({ setFormNumber }) => {
           Icon={Plane}
           Title="Destino"
           register={register}
-          Flights={Flights}
+          Flights={flights}
           errors={errors.destination}
           type="select"
           name="destination"
@@ -128,7 +149,7 @@ const FirstFlightForm: React.FC<FirstFlightForm> = ({ setFormNumber }) => {
         <InputComponent
           Title="Clase de vuelo"
           register={register}
-          Flights={Flights}
+          Flights={flights}
           errors={errors.flightClass}
           type="select"
           name="flightClass"
