@@ -16,12 +16,12 @@ const CompleteScreen: React.FC<CompleteScreen> = ({ setFormNumber }) => {
 
   return (
     <div className="bg-white p-10 rounded-lg  text-gray-700 w-4xl">
-      <div className="flex justify-center self-center">
+      <div className="flex justify-center self-center ">
         <Lottie
           animationData={doneAnimation}
           loop={true}
           autoplay={true}
-          className="w-50 h-50"
+          className="w-[250px] h-[250px]"
         />
       </div>
       <div className="text-center mb-4">
@@ -33,7 +33,7 @@ const CompleteScreen: React.FC<CompleteScreen> = ({ setFormNumber }) => {
 
       <button
         type="submit"
-        className="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 cursor-pointer"
+        className="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 cursor-pointer transition-colors duration-500"
         onClick={() => {
           setFormNumber(1);
           window.location.href = "/Vuelos";

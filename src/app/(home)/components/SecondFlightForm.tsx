@@ -11,7 +11,7 @@ interface Traveler {
   fullName: string;
   birthDate: string;
   idDocument: string;
-  idDocumentType: string; // Added this field
+  idDocumentType: string;
   hasPet: boolean;
   petCount: number;
   hasExtraBags: boolean;
@@ -77,11 +77,11 @@ const SecondFlightForm: React.FC<SecondFlightFormProps> = ({
   );
 
   const inputClass =
-    "mt-1 block w-full rounded-md border-gray-50 border-[2px] focus:outline-none shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm text-gray-700 px-2 h-10";
+    "mt-1 block w-full rounded-md border-gray-100 border-[2px] focus:outline-none shadow-sm focus:border-indigo-500 focus:ring-indigo-500 hover:border-indigo-500 focus:text-indigo-700 hover:text-indigo-700 transition-colors duration-500 hover:cursor-pointer sm:text-sm text-gray-700 px-2 h-10 border";
 
   return (
     <div
-      className="bg-white p-10 rounded-lg shadow-lg w-4xl"
+      className="bg-white p-10 rounded-lg shadow-lg w-4xl transition-all duration-300 hover:shadow-2xl"
       style={{ maxHeight: "700px", overflowY: "auto" }}
     >
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-7">
@@ -91,16 +91,19 @@ const SecondFlightForm: React.FC<SecondFlightFormProps> = ({
           </label>
           <input
             type="number"
+            min={0}
+            max={10}
             onChange={(e) => {
-              const count = parseInt(e.target.value, 10);
+              let count = parseInt(e.target.value, 10);
+              if (count > 10) {
+                count = 10;
+                e.target.value = "10";
+                toast.warn("El número máximo de viajeros es 10.");
+              }
               const currentCount = fields.length;
-              setFlightUsers(
-                e.target.value ? parseInt(e.target.value, 10) : null
-              );
+              setFlightUsers(e.target.value ? count : null);
               if (count !== currentCount) {
-                // Limpiar los datos anteriores
                 remove();
-                // Ajustar el número de campos de entrada
                 for (let i = 0; i < count; i++) {
                   append({
                     id: Date.now().toString() + i,
@@ -159,7 +162,7 @@ const SecondFlightForm: React.FC<SecondFlightFormProps> = ({
                       required: true,
                     })}
                     className={inputClass}
-                    max={new Date().toISOString().split("T")[0]} // Restricción para no permitir fechas futuras
+                    max={new Date().toISOString().split("T")[0]}
                   />
                 </div>
 
@@ -201,7 +204,7 @@ const SecondFlightForm: React.FC<SecondFlightFormProps> = ({
                     <input
                       type="checkbox"
                       {...register(`travelers.${index}.hasPet`)}
-                      className="mt-1"
+                      className="mt-1 cursor-pointer"
                     />
                   </div>
                   {watch(`travelers.${index}.hasPet`) && (
@@ -226,7 +229,7 @@ const SecondFlightForm: React.FC<SecondFlightFormProps> = ({
                     <input
                       type="checkbox"
                       {...register(`travelers.${index}.hasExtraBags`)}
-                      className="mt-1"
+                      className="mt-1 cursor-pointer"
                     />
                   </div>
                   {watch(`travelers.${index}.hasExtraBags`) && (
@@ -250,7 +253,7 @@ const SecondFlightForm: React.FC<SecondFlightFormProps> = ({
                   <input
                     type="checkbox"
                     {...register(`travelers.${index}.hasTravelInsurance`)}
-                    className="mt-1"
+                    className="mt-1 cursor-pointer"
                   />
                 </div>
 
@@ -261,7 +264,7 @@ const SecondFlightForm: React.FC<SecondFlightFormProps> = ({
                   <input
                     type="checkbox"
                     {...register(`travelers.${index}.hasPreferredSeats`)}
-                    className="mt-1"
+                    className="mt-1 cursor-pointer"
                   />
                 </div>
                 <div>
@@ -272,7 +275,7 @@ const SecondFlightForm: React.FC<SecondFlightFormProps> = ({
                     <input
                       type="checkbox"
                       {...register(`travelers.${index}.needsSpecialAssistance`)}
-                      className="mt-1"
+                      className="mt-1 cursor-pointer"
                     />
                   </div>
                   {watch(`travelers.${index}.needsSpecialAssistance`) && (
@@ -302,7 +305,7 @@ const SecondFlightForm: React.FC<SecondFlightFormProps> = ({
         {FlightUsers !== null && FlightUsers > 0 ? (
           <button
             type="submit"
-            className="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 cursor-pointer"
+            className="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 cursor-pointer transition-colors duration-500"
           >
             Confirmar
           </button>
@@ -310,7 +313,7 @@ const SecondFlightForm: React.FC<SecondFlightFormProps> = ({
           <div className="opacity-50 pointer-events-none">
             <button
               type="submit"
-              className="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 cursor-pointer"
+              className="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 cursor-pointer transition-colors duration-500"
             >
               Confirmar
             </button>
