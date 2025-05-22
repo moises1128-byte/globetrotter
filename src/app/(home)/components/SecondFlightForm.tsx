@@ -210,7 +210,7 @@ const SecondFlightForm: React.FC<SecondFlightFormProps> = ({
                   {watch(`travelers.${index}.hasPet`) && (
                     <div>
                       <label className="block text-sm font-medium text-gray-700">
-                        <strong>Cantidad de mascotas</strong>
+                        <strong>Cantidad de mascotas (100$ c/u)</strong>
                       </label>
                       <input
                         type="number"
@@ -235,7 +235,7 @@ const SecondFlightForm: React.FC<SecondFlightFormProps> = ({
                   {watch(`travelers.${index}.hasExtraBags`) && (
                     <div>
                       <label className="block text-sm font-medium text-gray-700">
-                        <strong>¿Cantidad de maletas extras?</strong>
+                        <strong>¿Cantidad de maletas extras? (50$ c/u)</strong>
                       </label>
                       <input
                         type="number"
@@ -289,6 +289,7 @@ const SecondFlightForm: React.FC<SecondFlightFormProps> = ({
                         )}
                         className={inputClass}
                         maxLength={200}
+                        style={{maxHeight: "100px", minHeight: "100px"}}
                       />
                     </div>
                   )}
