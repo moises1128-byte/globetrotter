@@ -47,7 +47,7 @@ const InputComponent = <T extends FieldValues>({
     "mt-1 block w-full rounded-md border-gray-100 border-[2px] focus:outline-none shadow-sm focus:border-indigo-500 focus:ring-indigo-500 hover:border-indigo-500 transition-colors duration-500 hover:cursor-pointer sm:text-sm text-gray-700 px-2 h-10 border focus:text-indigo-700 hover:text-indigo-700";
 
   const inputClassError =
-    "mt-1 block w-full rounded-md border-red-500 border-[2px] focus:outline-none shadow-sm focus:border-red-500 focus:ring-red-500 hover:border-red-500 transition-colors duration-500 hover:cursor-pointer sm:text-sm text-red-500 px-2 h-10 border focus:text-red-500 hover:text-red-500";
+    "mt-1 block w-full rounded-md border-red-500 border-[2px] focus:outline-none shadow-sm hover:cursor-pointer sm:text-sm text-red-500 px-2 h-10 border";
   return (
     <div>
       <div className="flex justify-start gap-2">
