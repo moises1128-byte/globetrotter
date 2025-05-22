@@ -102,6 +102,7 @@ const FirstFlightForm: React.FC<FirstFlightForm> = ({ setFormNumber }) => {
     setFormNumber(2);
   };
 
+
   return (
     <div className="bg-white p-10 rounded-lg shadow-lg w-4xl transition-all duration-300 hover:shadow-2xl ">
       <p className="block text-xl font-medium text-gray-700 text-center mb-5">
